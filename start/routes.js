@@ -19,3 +19,12 @@ const Route = use('Route')
 Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
+
+Route.group(() => {
+  Route.post('/register','AuthController.register')
+  Route.post('/authenticate','AuthController.authenticate')
+}).prefix('v1/auth')
+
+Route.group(()=>{
+  Route.get('/profile','ProfileController.index')
+}).prefix('v1/secure').middleware(["auth"])
